@@ -15,7 +15,8 @@
     "lodash": "^4.17.21",
     "react": "19.0.0",
     "react-native": "0.79.5",
-    "react-native-select-dropdown": "^4.0.1"
+    "react-native-select-dropdown": "^4.0.1",
+    "@react-native-picker/picker": "2.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

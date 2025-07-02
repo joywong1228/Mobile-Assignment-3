@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Platform } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import Dropdown from '../components/Dropdown';
+import MonthPicker from "../components/Dropdown";
 
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+// const months = [
+//   "January", "February", "March", "April", "May", "June",
+//   "July", "August", "September", "October", "November", "December"
+// ];
 
 export default function App() {
   const [month, setMonth] = useState("1"); // Default January
@@ -66,11 +65,8 @@ export default function App() {
       <Text style={styles.title}>Date Fact Finder</Text>
 
       <Text style={styles.label}>Select Month:</Text>
-  <Dropdown
-  data={months}
-  defaultIndex={0}
-  onSelect={(item, index) => setMonth(String(index + 1))}
-/>
+  <MonthPicker value={month} onChange={setMonth} />
+
 
       <Text style={styles.label}>Enter Day:</Text>
       <TextInput
