@@ -1,3 +1,3 @@
 import { ExpoRouter } from "expo-router";
 
-export default ExpoRouter;
+// export default ExpoRouter;
