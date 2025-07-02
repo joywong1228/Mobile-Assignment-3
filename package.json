@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "expo": "~53.0.16",
+    "expo-router": "~5.1.2",
     "expo-status-bar": "~2.2.3",
+    "lodash": "^4.17.21",
     "react": "19.0.0",
     "react-native": "0.79.5",
-    "expo-router": "~5.1.2"
+    "react-native-select-dropdown": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
