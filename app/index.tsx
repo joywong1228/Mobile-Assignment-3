@@ -15,8 +15,6 @@ export default function App() {
     return days[month - 1];
   };
 
-  
-
   useEffect(() => {
     const timer = setTimeout(() => {
       const dayNum = Number(day);
@@ -49,7 +47,7 @@ export default function App() {
       );
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
       const data = await res.json();
-      setFact(`${m}/${d} is the day in ${data.year} that ${data.text}.`);
+      setFact(data.text);
     } catch (error) {
       setFact("Error fetching fact. Please check your API key.");
     } finally {
@@ -59,8 +57,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>assignmentSample</Text>
-    
+      <Text style={styles.header}>Historical Date Facts</Text>
+      <Text style={styles.subtitle}>Select a month and day to discover interesting historical facts!</Text>
 
       <MonthPicker value={month} onChange={setMonth} />
 
@@ -100,11 +98,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
     marginVertical: 20,
     textAlign: "center",
+    color: "#666",
   },
   input: {
     height: 48,
