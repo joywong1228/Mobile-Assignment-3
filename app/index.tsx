@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import MonthPicker from "../components/Dropdown"; // Make sure path is correct
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
+import MonthPicker from "../components/Dropdown"; // Ensure correct path
 
 export default function App() {
-  const [month, setMonth] = useState("1"); // Default to January
+  const [month, setMonth] = useState("1");
   const [day, setDay] = useState("");
   const [fact, setFact] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,88 +58,99 @@ export default function App() {
       const data = await res.json();
       setFact(data.text);
     } catch (error) {
-      setFact("Error fetching fact. Please check your API key.");
+      setFact("⚠️ Could not fetch fact. Please check your API key or try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Historical Date Facts</Text>
-      <Text style={styles.subtitle}>Select a month and day to discover interesting historical facts!</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Historical Date Facts</Text>
+        <Text style={styles.subtitle}>Choose a month and day to discover a cool historical fact!</Text>
 
-      <MonthPicker value={month} onChange={setMonth} />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Day (e.g. 12)"
-        keyboardType="numeric"
-        maxLength={2}
-        value={day}
-        onChangeText={(text) => {
-          // Allow 1 or 2 digit numbers only
-          if (/^\d{0,2}$/.test(text)) {
-            setDay(text);
-          }
-        }}
-      />
-
-      {isLoading && <Text style={styles.loading}>Loading...</Text>}
-
-      {fact !== "" && !isLoading && (
-        <View style={styles.factContainer}>
-          <Text style={styles.fact}>{fact}</Text>
+        <View style={styles.pickerContainer}>
+          <MonthPicker value={month} onChange={setMonth} />
         </View>
-      )}
-    </View>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Enter day"
+          keyboardType="numeric"
+          maxLength={2}
+          value={day}
+          onChangeText={(text) => {
+            if (/^\d{0,2}$/.test(text)) setDay(text);
+          }}
+        />
+
+        {isLoading && <ActivityIndicator size="large" color="#007aff" style={{ marginTop: 30 }} />}
+
+        {!isLoading && fact !== "" && (
+          <View style={styles.factBox}>
+            <Text style={styles.factText}>{fact}</Text>
+          </View>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 24,
     paddingTop: 60,
-    backgroundColor: "#fff",
+    backgroundColor: "#fdfdfd",
+    alignItems: "center",
+    flexGrow: 1,
   },
   header: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: "bold",
-    textAlign: "center",
     marginBottom: 10,
+    color: "#1a1a1a",
   },
   subtitle: {
     fontSize: 16,
-    marginVertical: 20,
+    color: "#555",
+    marginBottom: 30,
     textAlign: "center",
-    color: "#666",
+  },
+  pickerContainer: {
+    width: "100%",
+    marginBottom: 16,
   },
   input: {
-    height: 48,
+    width: "100%",
+    height: 50,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 6,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    marginTop: 12,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    fontSize: 18,
+    backgroundColor: "#fff",
+    marginBottom: 10,
   },
-  loading: {
-    textAlign: "center",
-    color: "#666",
-    marginTop: 20,
-  },
-  factContainer: {
+  factBox: {
     marginTop: 30,
-    padding: 16,
-    backgroundColor: "#f0f8ff",
-    borderLeftWidth: 5,
-    borderLeftColor: "#007aff",
-    borderRadius: 6,
+    backgroundColor: "#e6f0ff",
+    padding: 20,
+    borderRadius: 12,
+    width: "100%",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    elevation: 4,
   },
-  fact: {
-    fontSize: 16,
-    lineHeight: 22,
+  factText: {
+    fontSize: 17,
     textAlign: "center",
+    color: "#333",
+    lineHeight: 24,
   },
 });
