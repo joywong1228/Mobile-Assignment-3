@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 8, // ✅ fixed error
+    borderRadius: 8, 
     overflow: "hidden",
     marginBottom: 10,
   },
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 8, // ✅ fixed error
+    borderRadius: 8, 
     marginTop: 5,
     backgroundColor: "#fff",
   },

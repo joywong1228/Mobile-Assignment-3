@@ -9,7 +9,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import MonthPicker from "../components/Dropdown"; // Ensure correct path
+import MonthPicker from "../components/Dropdown"; 
 
 export default function App() {
   const [month, setMonth] = useState("1");
